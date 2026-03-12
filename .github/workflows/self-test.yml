@@ -1,0 +1,21 @@
+name: Self-Test PR Task Generation
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  test-generation:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Generate Agent Task
+        uses: ./ # This points to the action in the current repo
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          llm_provider: 'gemini'
+          llm_api_key: ${{ secrets.GEMINI_API_KEY }}
