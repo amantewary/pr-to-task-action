@@ -1,0 +1,26 @@
+name: 'PR to Task (Agent Prompt)'
+description: 'Generates a highly structured agent task prompt from a Pull Request diff and repository tree.'
+branding:
+  icon: 'cpu'
+  color: 'blue'
+
+inputs:
+  github_token:
+    description: 'GitHub token to fetch PR diffs and add comments'
+    required: true
+    default: ${{ github.token }}
+  llm_provider:
+    description: 'LLM Provider (gemini or openai)'
+    required: true
+    default: 'gemini'
+  llm_api_key:
+    description: 'API key for the LLM provider'
+    required: true
+  model:
+    description: 'Model to use (default: gemini-2.5-flash or gpt-4o-mini depending on provider)'
+    required: false
+    default: ''
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
